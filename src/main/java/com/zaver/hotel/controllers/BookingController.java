@@ -55,7 +55,7 @@ public class BookingController {
     }
 
     @PostMapping("/{bookingReference}/cancel")
-    public ResponseEntity<?> cancelBooking(@PathVariable String bookingReference) {
+    public ResponseEntity<?> cancelBooking(@PathVariable("bookingReference") String bookingReference) {
         try {
             Booking booking = bookingService.cancelBooking(bookingReference);
             return ResponseEntity.ok(booking);
