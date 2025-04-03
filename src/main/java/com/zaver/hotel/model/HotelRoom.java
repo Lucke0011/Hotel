@@ -2,46 +2,70 @@ package com.zaver.hotel.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Data
+//@Data
 public class HotelRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column
     private String name;
-
-    @Column
     private String description;
-
-    @Column
     private int numberOfBeds;
-
-    @Column
     private int price;
-
-    @Column
-    @ElementCollection
-    private List<LocalDate> availability; // days
 
     @OneToMany(mappedBy = "room")
     private List<Booking> bookings;
 
-    public boolean isRoomAvailable(LocalDate dateRange) {
-        return availability.stream()
-                .filter(availability -> availability.isBefore(dateRange))
-                .filter(availability -> availability.isAfter(dateRange))
-                .findFirst().isEmpty();
-    }
-    
-    public boolean enoughRooms(int bedsNeeded) {
-        return bedsNeeded <= numberOfBeds;
+    public HotelRoom() {}
+
+    public Integer getId() {
+        return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getNumberOfBeds() {
+        return numberOfBeds;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setNumberOfBeds(int numberOfBeds) {
+        this.numberOfBeds = numberOfBeds;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 }
